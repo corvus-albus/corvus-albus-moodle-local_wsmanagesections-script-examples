@@ -4,7 +4,7 @@ from requests import get, post
 ## Insert token and URL for your site here. 
 ## Mind that the endpoint can start with "/moodle" depending on your installation.
 KEY = "" 
-URL = "https://moodle.example.site"
+URL = "https://your.moodle.site"
 ENDPOINT="/webservice/rest/server.php"
 
 def rest_api_parameters(in_args, prefix='', out_dict=None):
@@ -50,10 +50,10 @@ def call(fname, **kwargs):
 # Rest-Api classes
 ################################################
 
-class LocalUpdateSectionname(object):
+class LocalUpdateSectionnames(object):
     """Updates sectionnames. Requires: courseid and an array with sectionnumbers and sectionnames"""
     def __init__(self, cid, secnumname):
-        self.updatesectionname = call('local_wsmanagesections_update_sectionname', courseid = cid, sections = secnumname)
+        self.updatesectionnames = call('local_wsmanagesections_update_sectionnames', courseid = cid, sections = secnumname)
         
 ################################################
 # Example
@@ -62,5 +62,5 @@ class LocalUpdateSectionname(object):
 # Update sectionnames.
 courseid = "881"  # Exchange with a valid courseid.
 sectionnames = [{'sectionnumber': 1, 'sectionname': "one"},{'sectionnumber': 2, 'sectionname': "two"},{'sectionnumber': 3, 'sectionname': "three"}]
-sec = LocalUpdateSectionname(courseid, sectionnames)
-print(sec.updatesectionname)
+sec = LocalUpdateSectionnames(courseid, sectionnames)
+print(sec.updatesectionnames)

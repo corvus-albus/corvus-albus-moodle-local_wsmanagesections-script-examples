@@ -4,7 +4,7 @@ from requests import get, post
 ## Insert token and URL for your site here. 
 ## Mind that the endpoint can start with "/moodle" depending on your installation.
 KEY = "" 
-URL = "https://moodle.example.site"
+URL = "https://your.moodle.site"
 ENDPOINT="/webservice/rest/server.php"
 
 def rest_api_parameters(in_args, prefix='', out_dict=None):

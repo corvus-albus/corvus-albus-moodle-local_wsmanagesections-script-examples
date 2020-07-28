@@ -50,19 +50,22 @@ def call(fname, **kwargs):
 # Rest-Api classes
 ################################################
 
-class LocalCreateSections(object):
-    """Adds sections. Requires: courseid, position, number of sections"""
-    def __init__(self, cid, pos, num = 1):
-        self.createsections = call('local_wsmanagesections_create_sections', courseid = cid, position = pos, number = num)
-        
+class LocalGetSections(object):
+    """Get settings of sections. Requires courseid. Optional you can specify sections via number or id."""
+    def __init__(self, cid, secnums = [], secids = []):
+        self.getsections = call('local_wsmanagesections_get_sections', courseid = cid, sectionnumbers = secnums, sectionids = secids)
+
 ################################################
 # Example
 ################################################
 
-# Create sections.
 courseid = "881" # Exchange with valid id.
-position = 4
-number = 3
-sec = LocalCreateSections(courseid, position, number)
-print(sec.createsections)
-
+# Get all sections of the course.
+sec = LocalGetSections(courseid)
+# Get sections ids of the course with the given numbers.
+sec = LocalGetSections(courseid, [0, 1, 2, 3, 5, 6])
+# Get sections ids of the course with the given ids.
+sec = LocalGetSections(courseid, [], [7186, 7187, 7188, 7189])
+# Get sections ids of the course with the given numbers and given ids.
+sec = LocalGetSections(courseid, [0, 1, 2, 3, 5, 6], [7186, 7187, 7188, 7189])
+print(sec.getsections)

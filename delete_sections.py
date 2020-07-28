@@ -50,19 +50,22 @@ def call(fname, **kwargs):
 # Rest-Api classes
 ################################################
 
-class LocalCreateSections(object):
-    """Adds sections. Requires: courseid, position, number of sections"""
-    def __init__(self, cid, pos, num = 1):
-        self.createsections = call('local_wsmanagesections_create_sections', courseid = cid, position = pos, number = num)
+class LocalDeleteSections(object):
+    """Delete sections. Requires courseid. Optional you can specify sections via number or id."""
+    def __init__(self, cid, secnums = [], secids = []):
+        self.deletesections = call('local_wsmanagesections_delete_sections', courseid = cid, sectionnumbers = secnums, sectionids = secids)
         
 ################################################
 # Example
 ################################################
 
-# Create sections.
-courseid = "881" # Exchange with valid id.
-position = 4
-number = 3
-sec = LocalCreateSections(courseid, position, number)
-print(sec.createsections)
+# Delete sections.
+courseid = "881" # Exchange with valid course id.
+# Delete all sections except the first.
+sec = LocalDeleteSections(courseid)
+# Delete section numbers 15, 16, 17, 19. 
+sec = LocalDeleteSections(courseid, [15, 16, 17, 19])
+# Delete sections 1111, 1112, 1113, 1114. Exchange with valid section ids.
+sec = LocalDeleteSections(courseid, [], [1111, 1112, 1113, 1114])
+print(sec.deletesections)
 

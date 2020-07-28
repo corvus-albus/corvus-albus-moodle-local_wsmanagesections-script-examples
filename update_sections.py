@@ -50,19 +50,18 @@ def call(fname, **kwargs):
 # Rest-Api classes
 ################################################
 
-class LocalCreateSections(object):
-    """Adds sections. Requires: courseid, position, number of sections"""
-    def __init__(self, cid, pos, num = 1):
-        self.createsections = call('local_wsmanagesections_create_sections', courseid = cid, position = pos, number = num)
+class LocalUpdateSections(object):
+    """Updates sectionnames. Requires: courseid and an array with sectionnumbers and sectionnames"""
+    def __init__(self, cid, sectionsdata):
+        self.updatesections = call('local_wsmanagesections_update_sections', courseid = cid, sections = sectionsdata)
         
 ################################################
 # Example
 ################################################
 
-# Create sections.
+# Update sections. Example for onetopic format.
 courseid = "881" # Exchange with valid id.
-position = 4
-number = 3
-sec = LocalCreateSections(courseid, position, number)
-print(sec.createsections)
-
+data = [{'type': 'num', 'section': 4, 'name': 'Four§', 'summary': '<p>section FOUR</p>', 'summaryformat': 1, 'visible': 1 , 'highlight': 0, 'sectionformatoptions': [{'name': 'level', 'value': '1'}]},\
+        {'type': 'num', 'section': 3, 'name': '3', 'summary': '<p>section THREE</p>', 'summaryformat': 1, 'visible': 0 , 'highlight': 0, 'sectionformatoptions': [{'name': 'level', 'value': '0'}]}]
+sec = LocalUpdateSections(courseid, data)
+print(sec.updatesections)
